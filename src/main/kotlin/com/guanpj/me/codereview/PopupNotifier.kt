@@ -12,14 +12,6 @@ import java.util.concurrent.TimeUnit
 import java.io.BufferedReader
 import java.io.InputStreamReader
 
-data class ReviewInfo(
-    val platform: String,
-    val type: String,
-    val id: String,
-    val summary: String,
-    val link: String
-)
-
 class PopupNotifier {
     companion object {
         private const val REVIEWER_NAME = "@袁伟"
@@ -102,6 +94,7 @@ class PopupNotifier {
             NotificationType.INFORMATION
         ) ?: Notification(
             NOTIFICATION_GROUP_ID,
+            "",
             notificationContent,
             NotificationType.INFORMATION
         )
