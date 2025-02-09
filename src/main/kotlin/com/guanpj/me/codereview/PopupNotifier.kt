@@ -4,7 +4,6 @@ import com.intellij.notification.*
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.ide.CopyPasteManager
 import com.intellij.openapi.project.Project
-import com.intellij.util.ExceptionUtil
 import java.awt.datatransfer.StringSelection
 import java.net.HttpURLConnection
 import java.net.URL
@@ -21,14 +20,8 @@ class PopupNotifier {
 
         // 标题特征模式
         private const val TITLE_PATTERN = """<div class="titleView-[^"]*"[^>]*>[^<]+</div>"""
-    }
 
-    private val notificationGroup by lazy {
-        try {
-            NotificationGroupManager.getInstance().getNotificationGroup(NOTIFICATION_GROUP_ID)
-        } catch (e: Throwable) {
-            NotificationGroup.balloonGroup(NOTIFICATION_GROUP_ID)
-        }
+        private val notificationGroup = NotificationGroup(NOTIFICATION_GROUP_ID, NotificationDisplayType.BALLOON)
     }
 
     private fun isUrlContentValid(urlString: String): Boolean {
@@ -48,16 +41,12 @@ class PopupNotifier {
                 return false
             }
 
-            // 读取页面内容
             val content = BufferedReader(InputStreamReader(connection.inputStream)).use { reader ->
                 reader.readText()
             }
             connection.disconnect()
 
-            // 使用正则表达式检查标题div
             val titleMatch = Regex(TITLE_PATTERN, RegexOption.IGNORE_CASE).find(content)
-            
-            // 如果找到标题，并且标题内容不为空
             titleMatch != null && titleMatch.value.replace(Regex("<[^>]+>"), "").trim().isNotEmpty()
         } catch (e: Exception) {
             false
@@ -89,12 +78,7 @@ class PopupNotifier {
     fun showPopup(project: Project, reviewInfo: ReviewInfo) {
         val notificationContent = generateNotificationContent(reviewInfo)
 
-        val notification = notificationGroup?.createNotification(
-            notificationContent,
-            NotificationType.INFORMATION
-        ) ?: Notification(
-            NOTIFICATION_GROUP_ID,
-            "",
+        val notification = notificationGroup.createNotification(
             notificationContent,
             NotificationType.INFORMATION
         )
