@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.guanpj.me"
-version = "1.0.3"
+version = "1.0.5"
 
 repositories {
     mavenCentral()
@@ -44,7 +44,7 @@ tasks {
     }
 
     patchPluginXml {
-        sinceBuild.set("202")
+        sinceBuild.set("203")
         untilBuild.set("243.*")
     }
     

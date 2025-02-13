@@ -26,6 +26,6 @@
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
         <consoleFilterProvider implementation="com.guanpj.me.codereview.GitConsoleFilterProvider"/>
-        <notificationGroup id="Git Console Monitor" displayType="TOOL_WINDOW" key="git.console.monitor"/>
+        <notificationGroup id="Git Console Monitor" displayType="STICKY_BALLOON" key="git.console.monitor"/>
     </extensions>
 </idea-plugin>
