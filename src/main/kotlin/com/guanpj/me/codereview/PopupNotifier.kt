@@ -18,41 +18,9 @@ class PopupNotifier {
         private const val REQUIREMENTS_TEMPLATE = "http://dlc.coding.byd.com/p/%s/requirements/issues/%s/detail"
         private const val NOTIFICATION_GROUP_ID = "Git Console Monitor"
         
-        // 标题特征模式
-        private const val TITLE_PATTERN = """<div class="titleView-[^"]*"[^>]*>[^<]+</div>"""
-
         // 创建通知组
         private val notificationGroup by lazy {
             NotificationGroupManager.getInstance().getNotificationGroup(NOTIFICATION_GROUP_ID)
-        }
-    }
-
-    private fun isUrlContentValid(urlString: String): Boolean {
-        return try {
-            val url = URL(urlString)
-            val connection = url.openConnection() as HttpURLConnection
-            connection.apply {
-                connectTimeout = TimeUnit.SECONDS.toMillis(5).toInt()
-                readTimeout = TimeUnit.SECONDS.toMillis(5).toInt()
-                requestMethod = "GET"
-                instanceFollowRedirects = true
-                setRequestProperty("User-Agent", "Mozilla/5.0")
-            }
-            
-            if (connection.responseCode !in 200..299) {
-                connection.disconnect()
-                return false
-            }
-
-            val content = BufferedReader(InputStreamReader(connection.inputStream)).use { reader ->
-                reader.readText()
-            }
-            connection.disconnect()
-
-            val titleMatch = Regex(TITLE_PATTERN, RegexOption.IGNORE_CASE).find(content)
-            titleMatch != null && titleMatch.value.replace(Regex("<[^>]+>"), "").trim().isNotEmpty()
-        } catch (e: Exception) {
-            false
         }
     }
 
