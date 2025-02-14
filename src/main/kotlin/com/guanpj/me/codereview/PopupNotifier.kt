@@ -5,11 +5,6 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.ide.CopyPasteManager
 import com.intellij.openapi.project.Project
 import java.awt.datatransfer.StringSelection
-import java.net.HttpURLConnection
-import java.net.URL
-import java.util.concurrent.TimeUnit
-import java.io.BufferedReader
-import java.io.InputStreamReader
 
 class PopupNotifier {
     companion object {
@@ -51,9 +46,9 @@ class PopupNotifier {
                 }
             })
             .addAction(object : NotificationAction("Copy and close") {
-                override fun actionPerformed(p0: AnActionEvent, p1: Notification) {
+                override fun actionPerformed(e: AnActionEvent, notification: Notification) {
                     CopyPasteManager.getInstance().setContents(StringSelection(notificationContent))
-                    p1.expire()
+                    notification.expire()
                 }
             })
             .notify(project)
