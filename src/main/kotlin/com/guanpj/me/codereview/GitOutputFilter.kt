@@ -7,8 +7,8 @@ class GitOutputFilter(private val project: Project) : Filter {
     private val popupNotifier = PopupNotifier()
     
     private fun parseConsoleOutput(line: String): ReviewInfo? {
-        // remote:   http://xxx [平台][CR或者PR:ID][概述]
-        val regex = """remote:\s+?(http://[^\s]+)\s+?\[([^\]]+)\]\[(CR|PR):(\d+)\]\[([^\]]+)\]""".toRegex()
+        // remote:   http://xxx [平台][CR或者PR:ID][概述][NEW]
+        val regex = """remote:\s+?(http://[^\s]+)\s+?\[([^\]]+)\]\[(CR|PR):(\d+)\]\[([^\]]+)\]\[NEW\]""".toRegex()
         val matchResult = regex.find(line) ?: return null
         
         return ReviewInfo(
