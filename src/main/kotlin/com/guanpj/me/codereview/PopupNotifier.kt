@@ -8,7 +8,7 @@ import java.awt.datatransfer.StringSelection
 
 class PopupNotifier {
     companion object {
-        private const val REVIEWER_NAME = "@袁伟"
+        private const val REVIEWER_NAME = "@曹涛 @白快快"
         private const val BUG_TRACKING_TEMPLATE = "http://dlc.coding.byd.com/p/%s/bug-tracking/issues/%s/detail"
         private const val REQUIREMENTS_TEMPLATE = "http://dlc.coding.byd.com/p/%s/requirements/issues/%s/detail"
         private const val NOTIFICATION_GROUP_ID = "Git Console Monitor"
